@@ -78,5 +78,68 @@ app.patch('/user/:id', (req, res) => {
             })
         }
     })
-}    
+}
+// --------------------------------------------------------------------------------------------------
+
+// - 4
+{
+app.get('/users/', (req, res) => {
+    const name = req.query.name;
+    const userExist = users.find((user) => {
+        return user.name == name;
+    })
+    if (userExist) {
+        res.send(userExist)
+    }else{
+res.json({
+    message : "User name not found"
+})
+    }
+})
+}
+// --------------------------------------------------------------------------------------------------
+
+// - 5
+// GET all users
+{
+    app.get('/user', (req, res) => {
+        res.json(users);
+    })
+}
+// --------------------------------------------------------------------------------------------------
+
+// - 6
+{
+    app.get('/user/filter', (req, res) => {
+        const minAge = req.query.minAge;
+        const result = users.filter((user) => {
+            return user.age >= minAge;
+        })
+        if (result.length > 0){
+            res.json(result);
+        }else{
+            res.json({
+                message : "No users found"
+            })
+        }
+    })
+}
+// --------------------------------------------------------------------------------------------------
+
+// - 7
+{
+    app.get('/user/:id', (req, res) => {
+        const id = req.params.id;
+        const userExist = users.find((user) => {
+            return user.id == id;
+        })
+        if (userExist) {
+            res.json(userExist);
+        }else{
+            res.json({
+                message : "User id not found"
+            })
+        }
+    })
+}
 app.listen(3000);
